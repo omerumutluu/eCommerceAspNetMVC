@@ -1,0 +1,49 @@
+﻿@using Entity.Concrete;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Product>
+
+@{
+    ViewBag.Title = "GetProducts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<h1 style="text-align: center; color: #191970">TÜM ÜRÜNLER</h1>
+<br />
+<br />
+<table class="table table-striped" style="text-align:center">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Ürün Id</th>
+            <th scope="col">Mağaza Id</th>
+            <th scope="col">Mağaza İsmi</th>
+            <th scope="col">Kategori İsmi</th>
+            <th scope="col">Marka İsmi</th>
+            <th scope="col">Ürün İsmi</th>
+            <th scope="col">Ürün Fiyatı</th>
+            <th scope="col">Ürün Stoğu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.ProductId</th>
+                <th>@item.CorporateAccountId</th>
+                <td>@item.CorporateAccount.CorporateName</td>
+                <td>@item.Category.CategoryName</td>
+                <td>@item.Brand.BrandName</td>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice</td>
+                <td>@item.UnitsInStock</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetProducts", "Admin", new { page }))
+</div>
+

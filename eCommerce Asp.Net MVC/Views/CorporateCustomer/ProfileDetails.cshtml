@@ -1,0 +1,36 @@
+﻿@using Entity.Concrete
+@model CorporateAccount
+
+@{
+    ViewBag.Title = "ProfileDetails";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+<br />
+<h1 style="text-align: center; color: #191970">Mağaza Profil Sayfası</h1>
+<br />
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputName1">Mağaza Adınız</label>
+                @Html.TextBoxFor(x => x.CorporateName, new { @class = "form-control", @placeholder = "Mağaza Adı", @readonly = true })
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="exampleInputEmail3">Web Siteniz</label>
+                @Html.TextBoxFor(x => x.WebSite, new { @class = "form-control", @placeholder = "Web Sitesi", @readonly = true })
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="exampleInputPassword4">Telefon Numaranız</label>
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Telefon Numarası", @readonly = true })
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="exampleInputPassword4">Mailiniz</label>
+                @Html.TextBoxFor(x => x.User.Email, new { @class = "form-control", @placeholder = "Email", @readonly = true })
+            </div>
+        </div>
+    </div>
+</div>
+

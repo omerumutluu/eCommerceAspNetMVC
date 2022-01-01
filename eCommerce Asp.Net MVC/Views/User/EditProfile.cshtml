@@ -1,0 +1,55 @@
+﻿@using Entity.Concrete
+@model CustomerAccount
+
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<br />
+<br />
+<br />
+<br />
+<h1 style="text-align: center; color: #191970">Kullanıcı Profil Düzenleme Sayfası</h1>
+<br />
+<br />
+<div class="container">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm("EditProfile", "User", FormMethod.Post))
+                {
+                    @Html.HiddenFor(x => x.CustomerAccountId)
+                    <div class="form-group">
+                        <label for="exampleInputName1">İsim </label>
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @placeholder = "Ad" })
+                        @Html.ValidationMessageFor(x => x.FirstName, "", new { @style = "color:firebrick;font-weight:bold" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="exampleInputName1">Soyad </label>
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "Soyad" })
+                        @Html.ValidationMessageFor(x => x.LastName, "", new { @style = "color:firebrick;font-weight:bold" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="exampleInputName1">Telefon Numarası </label>
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Telefon Numarası" })
+                        @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @style = "color:firebrick;font-weight:bold" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="exampleInputName1">Adres</label>
+                        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @placeholder = "Adres" })
+                        @Html.ValidationMessageFor(x => x.Address, "", new { @style = "color:firebrick;font-weight:bold" })
+                    </div>
+                    <br />
+                    <br />
+                    <button class="btn btn-primary btn-sm">Profili Güncelle</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

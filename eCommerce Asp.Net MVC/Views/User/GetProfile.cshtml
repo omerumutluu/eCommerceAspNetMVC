@@ -1,0 +1,53 @@
+﻿@using Entity.Concrete
+@model CustomerAccount
+
+@{
+    ViewBag.Title = "GetProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<br />
+<br />
+<br />
+<br />
+<h1 style="text-align: center; color: #191970">Kullanıcı Profil Sayfası</h1>
+<br />
+<br />
+<div class="container">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputName1">Email</label>
+                    @Html.TextBoxFor(x => x.User.Email, new { @class = "form-control", @readonly = true })
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="exampleInputName1">İsim </label>
+                    @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @readonly = true })
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="exampleInputName1">Soyad </label>
+                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @readonly = true })
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="exampleInputName1">Telefon Numarası </label>
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @readonly = true })
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="exampleInputName1">Adres</label>
+                    @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @readonly = true })
+                </div>
+                <br />
+                <br />
+                <div style="text-align:center">
+                    <a class="btn btn-primary btn-sm" href="/User/EditProfile/">Profili Güncelle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

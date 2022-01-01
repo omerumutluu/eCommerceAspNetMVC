@@ -1,0 +1,52 @@
+﻿@using Entity.Concrete;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Category>
+
+@{
+    ViewBag.Title = "GetCategories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="container">
+
+    <h1 style="text-align: center; color: #191970">TÜM KATEGORILER</h1>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-striped" style="text-align:center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Kategori Id</th>
+                        <th scope="col">Kategori İsmi</th>
+                        <th scope="col">Kategoriyi Düzenle</th>
+                        <th scope="col">Kategoriyi Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.CategoryId</th>
+                            <td>@item.CategoryName</td>
+                            <td><a class="btn btn-sm btn-warning" style="color:white" href="/Admin/EditCategory?categoryId=@item.CategoryId">Düzenle</a></td>
+                            <td><a class="btn btn-sm btn-danger" style="color:white" href="/Admin/DeleteCategory?categoryId=@item.CategoryId">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+</div>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetCategories", "Admin", new { page }))
+</div>
+

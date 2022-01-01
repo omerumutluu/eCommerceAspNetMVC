@@ -1,0 +1,129 @@
+﻿@using Entity.Concrete
+@model Product
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+
+@using (Html.BeginForm("EditProduct", "CorporateCustomer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <br />
+        <br />
+        <h1 style="text-align: center; color: #191970">ÜRÜN GÜNCELLEME SAYFASI</h1>
+        <br />
+        <br />
+        @Html.HiddenFor(x => x.ProductId)
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Ürün Adı : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.ProductName, "", new { @style = "color:firebrick;font-weight:bold" })
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Kategori : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @*@Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryId, new { @class = "form-control" })*@
+                <select name="categoryId" id="categoryId" class="form-control">
+                    @foreach (var item in ViewBag.categories)
+                    {
+                        if (item.CategoryId.ToString() == ViewBag.categoryId)
+                        {
+                            <option value="@item.CategoryId" selected>@item.CategoryName </option>
+                        }
+                        else
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Marka : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @*@Html.DropDownList("brandId", (IEnumerable<SelectListItem>)ViewBag.BrandId, new { @class = "form-control" })*@
+                <select name="brandId" id="brandId" class="form-control">
+                    @foreach (var item in ViewBag.brands)
+                    {
+                        if (item.BrandId.ToString() == ViewBag.brandId)
+                        {
+                            <option value="@item.BrandId" selected>@item.BrandName </option>
+                        }
+                        else
+                        {
+                            <option value="@item.BrandId">@item.BrandName</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Resmi : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" name="ProductThumbnail">
+                </div>
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.ProductThumbnail, "", new { @style = "color:firebrick;font-weight:bold" })
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Fiyatı : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.UnitPrice, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.UnitPrice, "", new { @style = "color:firebrick;font-weight:bold" })
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Stok Adeti : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.UnitsInStock, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.UnitsInStock, "", new { @style = "color:firebrick;font-weight:bold" })
+                </div>
+                <br />
+            </div>
+            <button type="submit" class="btn btn-success" style="margin:auto;margin-top:1em">Ürünü Güncelle</button>
+        </div>
+    </div>
+}
+

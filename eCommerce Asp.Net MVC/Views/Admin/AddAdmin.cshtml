@@ -1,0 +1,88 @@
+﻿@using Entity.Concrete;
+@model AdminAccount
+
+@{
+    ViewBag.Title = "AddAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <br />
+        <h1 style="text-align: center; color: #191970">ADMİN EKLEME SAYFASI</h1>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Admin Mail : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                <input name="userMail" class="form-control" placeholder="Admin mailini giriniz" type="email" />
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Şifre : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                <input name="userPassword" class="form-control" placeholder="Admin şifresini giriniz" type="password" />
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Adminin İsmi : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @placeholder = "Admin adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.FirstName)
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Adminin Soyadı : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "Admin soyadını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.LastName)
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Telefon Numarası : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Admin telefon numarasını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.PhoneNumber)
+                </div>
+                <br />
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin:auto;margin-top:1em">Admini Ekle</button>
+        </div>
+    </div>
+}
+

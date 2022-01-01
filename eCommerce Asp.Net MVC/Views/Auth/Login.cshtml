@@ -1,0 +1,43 @@
+﻿@using Entity.Dtos
+@model UserForLoginDto
+
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="container" style="text-align:center">
+    <br />
+    <h1 style="text-align: center; color: #191970">ÜYE GİRİŞ SAYFASI</h1>
+    <br />
+    <h5 style="text-align:center;color:firebrick">@ViewBag.message</h5>
+    <br />
+
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:24px"><b>Email Adresi</b></label>
+                    <input type="email" name="email" class="form-control" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:24px"><b>Şifre</b></label>
+                    <input type="password" name="Password" class="form-control">
+                    <div id="emailHelp" class="form-text">Kişisel bilgileriniz kimseyle paylaşılmayacaktır.</div>
+                </div>
+                <button type="submit" class="btn btn-primary btn">Giriş Yap</button>
+            }
+            <br />
+            <p><b>Hesabınız yok mu?</b></p>
+            <a href="/Auth/RegisterAsCustomer/" class="btn btn-warning">Tıklayarak Kayıt Olabilirsiniz</a>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>

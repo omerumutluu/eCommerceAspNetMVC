@@ -1,0 +1,121 @@
+﻿@using Entity.Concrete
+@using Business.Abstract
+@using Business.Concrete
+@using DataAccess.Concrete.Repository.EntityFramework
+
+@{
+    Layout = null;
+    IUserService _userService = new UserManager(new EfUserDal());
+    ICorporateAccountService _corporateAccountService = new CorporateAccountManager(new EfCorporateAccountDal());
+    ICustomerAccountService _customerAccountService = new CustomerAccountManager(new EfCustomerAccountDal());
+    IAdminAccountService _adminAccountService = new AdminAccountManager(new EfAdminAccountDal());
+    var loggedInUser = _userService.GetByEmail((string)Session["Email"]);
+    CorporateAccount corporateAccount = new CorporateAccount { UserId = 0 };
+    CustomerAccount customerAccount = new CustomerAccount { UserId = 0 };
+    AdminAccount adminAccount = new AdminAccount { UserId = 0 };
+    if (loggedInUser != null)
+    {
+        corporateAccount = _corporateAccountService.GetByUserId(loggedInUser.UserId);
+        customerAccount = _customerAccountService.GetByUserId(loggedInUser.UserId);
+        adminAccount = _adminAccountService.GetByUserId(loggedInUser.UserId);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Umutlu Ticaret</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/Product/GetAll" style="margin-left:5em">Umutlu Ticaret</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left:17em">
+                    @using (Html.BeginForm("GetAllByNameSearch", "Product", FormMethod.Get, new { @class = "d-flex" }))
+                    {
+                        <input class="form-control me-2" type="search" placeholder="Kelimleri giriniz..." aria-label="Search" name="nameSearch">
+                        @*@Html.TextBox("filter", new { @class = "form-control me-2" })*@
+                        <button class="btn btn-outline-primary" type="submit">Ara</button>
+                    }
+                    @if (corporateAccount != null)
+                    {
+                        <a href="/Cart/GetCartDetails?cartId=@corporateAccount.UserId" style="margin-right:1em;margin-left:12em" class="btn btn-light btn-sm">Sepetim</a>
+                    }
+                    else if (customerAccount != null)
+                    {
+                        <a href="/Cart/GetCartDetails?cartId=@customerAccount.UserId" style="margin-right:1em;margin-left:12em" class="btn btn-light btn-sm">Sepetim</a>
+                    }
+                    else if (adminAccount != null)
+                    {
+                        <a href="/Cart/GetCartDetails?cartId=@adminAccount.UserId" style="margin-right:1em;margin-left:12em" class="btn btn-light btn-sm">Sepetim</a>
+
+                    }
+
+
+                    @if (Session["Email"] == null)
+                    {
+                        <form method="get" action="/Auth/Login/">
+                            <button class="btn btn-primary btn-sm" style="margin-right:1.2em">Giriş Yap</button>
+                        </form>
+                        <form method="get" action="/Auth/RegisterAsCustomer/">
+                            <button class="btn btn-danger btn-sm">Kayıt Ol</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="btn-group">
+                            @if (corporateAccount != null && corporateAccount.UserId != 0)
+                            {
+                                <button type="button" class="btn btn-primary">
+                                    Hoşgeldiniz @corporateAccount.CorporateName
+                                </button>
+                            }
+                            else if (customerAccount != null && customerAccount.UserId != 0)
+                            {
+                                <button type="button" class="btn btn-primary">
+                                    Hoşgeldin @customerAccount.FirstName
+                                </button>
+                            }
+                            else if (adminAccount != null && adminAccount.UserId != 0)
+                            {
+                                <button type="button" class="btn btn-primary">
+                                    Hoşgeldin @adminAccount.FirstName
+                                </button>
+                            }
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                @if (User.IsInRole("corporate"))
+                                {
+                                    <li><a class="dropdown-item" href="/CorporateCustomer/Home/" style="text-align:center">Mağaza Paneli</a></li>
+                                }
+                                @if (User.IsInRole("admin") || User.IsInRole("admin+"))
+                                {
+                                    <li><a class="dropdown-item" href="/Admin/Home/" style="text-align:center">Admin Paneli</a></li>
+                                }
+                                @if (User.IsInRole("customer"))
+                                {
+                                    <li><a class="dropdown-item" href="/Order/GetOrdersByCustomer/" style="text-align:center">Siparişlerim</a></li>
+                                    <li><a class="dropdown-item" href="/Comment/GetCommentsByUser/" style="text-align:center">Değerlendirmelerim</a></li>
+                                    <li><a class="dropdown-item" href="/User/GetProfile/" style="text-align:center">Profilim</a></li>
+                                    <li><a class="dropdown-item" href="/User/EditProfile/" style="text-align:center">Profili Düzenle</a></li>
+                                }
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/Auth/LogOut/" style="text-align:center">Çıkış Yap</a></li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
+    </div>
+    @RenderBody()
+</body>
+</html>
+
+<script src="~/Themes/bootstrap-5.1.3-dist/js/bootstrap.js"></script>

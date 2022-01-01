@@ -1,0 +1,43 @@
+﻿@using Entity.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Comment>
+
+@{
+    ViewBag.Title = "GetCommentByCorporateCustomer";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<table class="table table-striped">
+    <thead class="thead-dark" style="text-align:center">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ürün İsmi</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Oylama</th>
+            <th scope="col">Yorum Başlığı</th>
+            <th scope="col">Yorum Açıklaması</th>
+        </tr>
+    </thead>
+    <tbody style="text-align:center">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.CommentId</th>
+                <td scope="row">@item.Product.ProductName</td>
+                <td scope="row">@item.User.Email</td>
+                <th scope="row"><b>5 / @item.CommentLevel</b></th>
+                <td scope="row">@item.CommentTitle</td>
+                <td scope="row">@item.CommentDetail</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetCommentByCorporateCustomer", "Admin", new { page }))
+</div>
+
+

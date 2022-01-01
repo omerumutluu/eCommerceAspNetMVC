@@ -1,0 +1,51 @@
+﻿@using Entity.Concrete;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Brand>
+@{
+    ViewBag.Title = "GetBrands";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="container">
+
+    <h1 style="text-align: center; color: #191970">TÜM MARKALAR</h1>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-striped" style="text-align:center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Marka Id</th>
+                        <th scope="col">Marka İsmi</th>
+                        <th scope="col">Markayı Düzenle</th>
+                        <th scope="col">Markayı Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.BrandId</th>
+                            <td>@item.BrandName</td>
+                            <td><a class="btn btn-sm btn-warning" style="color:white" href="/Admin/EditBrand?brandId=@item.BrandId">Düzenle</a></td>
+                            <td><a class="btn btn-sm btn-danger" style="color:white" href="/Admin/DeleteBrand?brandId=@item.BrandId">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+
+</div>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetBrands", "Admin", new { page }))
+</div>
+

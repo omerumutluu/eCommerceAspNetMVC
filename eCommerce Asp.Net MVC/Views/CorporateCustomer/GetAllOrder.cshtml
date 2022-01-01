@@ -1,0 +1,54 @@
+﻿@using Entity.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Order>
+
+@{
+    ViewBag.Title = "GetAllOrder";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+
+@*<br />
+    <h1 style="color:#191970;text-align:center">Sipariş Yönetim Sayfası</h1>
+    <br />*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<table class="table table-striped">
+    <thead class="thead-dark" style="text-align:center">
+        <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Ürün <br />İsmi</th>
+            <th>Adres <br />Bilgisi</th>
+            <th>Sipariş <br />Adeti</th>
+            <th>Durum</th>
+            <th>Hazırlanıyor Olarak <br />Düzenle</th>
+            <th>Kargoya Verildi <br />Olarak Düzenle</th>
+            <th>İşlem Tamamlandı <br />Olarak Düzenle</th>
+            <th>İptal <br />Et</th>
+        </tr>
+    </thead>
+    <tbody style="text-align:center">
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <th>@item.OrderId</th>
+                <td>@item.CustomerAccount.User.Email</td>
+                <td>@item.Product.ProductName</td>
+                <td>@item.CustomerAccount.Address</td>
+                <td>@item.Count</td>
+                <td>@item.OrderStatus</td>
+                <td><a class="btn btn-primary btn-sm" style="color:white" href="/Order/ChangeStatusAsPreparing?orderId=@item.OrderId">Hazırlanıyor</a></td>
+                <td><a class="btn btn-warning btn-sm" style="color:white" href="/Order/ChangeStatusAsInShipping?orderId=@item.OrderId">Kargoda</a></td>
+                <td><a class="btn btn-success btn-sm" style="color:white" href="/Order/ChangeStatusAsCompleted?orderId=@item.OrderId">Tamamlandı</a></td>
+                <td><a class="btn btn-danger btn-sm" style="color:white" href="/Order/ChangeStatusAsCanceled?orderId=@item.OrderId">İptal</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetAllOrder", "Admin", new { page }))
+</div>
+

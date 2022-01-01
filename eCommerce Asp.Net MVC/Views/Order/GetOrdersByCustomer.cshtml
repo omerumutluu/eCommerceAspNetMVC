@@ -1,0 +1,45 @@
+﻿@using Entity.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Order>
+
+@{
+    ViewBag.Title = "GetOrdersByCustomer";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@item.Product.ProductThumbnail" style="width:180px;height:180px" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><b>@item.Product.ProductName</b></h5>
+                                <p class="card-text" style="color:firebrick"><b>Fiyat : @item.Product.UnitPrice TL</b></p>
+                                <p class="card-text"><b>Adet : @item.Count</b></p>
+                                <p class="card-text"><b>Tutar : @(item.Count * item.Product.UnitPrice) Adet</b></p>
+                                <p class="card-text" style="color:blue"><b>Durum : @item.OrderStatus</b></p>
+                                <p class="card-text" ><b>Satıcı : @item.Product.CorporateAccount.CorporateName</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetOrdersByCustomer", "Order", new { page }))
+</div>

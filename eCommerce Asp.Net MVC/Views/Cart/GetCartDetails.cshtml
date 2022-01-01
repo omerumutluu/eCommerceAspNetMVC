@@ -1,0 +1,96 @@
+﻿@using Entity.Concrete
+@model List<Cart>
+
+@{
+    ViewBag.Title = "GetCartDetails";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<h1 style="text-align: center; color: #191970">SEPET DETAY SAYFASI</h1>
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="row g-0" style="margin-bottom:1em">
+                        <div class="col-md-3" style="margin-right:2em">
+                            <img src="@item.Product.ProductThumbnail" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color:red">
+                                    @item.Product.ProductName<h5>
+                                        <h5 class="card-title" style="color:gray">
+                                            @item.Product.Brand.BrandName<h5>
+                                                <h5 class="card-title" style="color:gray">
+                                                    @item.Product.Category.CategoryName<h5>
+                                                        <p class="card-text" style="color:blue"><b>@item.Product.UnitPrice TL </b></p>
+                                                        <p class="card-text" style="color:gray">Kalan Stok : <b>@item.Product.UnitsInStock Adet</b></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align:center">
+                            <button class="btn btn-primary" onclick="window.location.href = '@Url.Action("PlusOneProduct", "Cart",new {cartId=@item.CartId })'">Arttır </button>
+                            <br />
+                            <br />
+                            <br />
+                            <p class="card-text" style="color:gray"><b>@item.Count Adet</b></p>
+                            <br />
+                            <button class="btn btn-warning" onclick="window.location.href = '@Url.Action("MinusOneProduct", "Cart",new {cartId=@item.CartId })'"> Azalt </button>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="progress" style="margin-top:2em;margin-bottom:3em;height:5px">
+                        <div class="progress-bar bg-black" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                }
+            }
+            else if (Model.Count == 0)
+            {
+                <div style="text-align:center">
+                    <h3 style="color:gray">Sepetinizde ürün bulunmamaktadır.</h3>
+                    <br />
+                    <a class="btn btn-warning" href="/Product/GetAll">Ürünlere Giderek Alışverişe Başlayabilirsiniz.</a>
+                </div>
+            }
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Ürünlerin Toplam Fiyatı
+                    <span class="badge bg-secondary rounded-pill">@ViewBag.totalAmount TL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Kargo Bedeli
+                    <span class="badge bg-secondary rounded-pill">@ViewBag.shippingCost TL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center active">
+                    Toplam Ödenecek Fiyat
+                    <span class="badge bg-dark rounded-pill">@(ViewBag.totalAmount + ViewBag.shippingCost) TL</span>
+                </li>
+            </ul>
+            <br />
+            @if (Model.Count != 0)
+            {
+                <div style="text-align:center">
+                    <a class="btn btn-success btn-sm" style="text-align:center" href="/Order/CreateOrder">Alışverişi Tamamla</a>
+                </div>
+            }
+            <br />
+            <h4 style="text-align:center;color:firebrick">@ViewBag.message</h4>
+        </div>
+    </div>
+</div>
+

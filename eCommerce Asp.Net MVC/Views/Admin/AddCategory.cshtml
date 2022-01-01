@@ -1,0 +1,29 @@
+﻿@using Entity.Concrete;
+@model Category
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post))
+{
+    <div class="container">
+        <br />
+        <br />
+        <h1 style="text-align: center; color: #191970">KATEGORİ EKLEME SAYFASI</h1>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Kategori İsmi : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control", @placeholder = "Kategori ismini giriniz" })
+                <br />
+            </div>
+            <button type="submit" class="btn btn-success" style="margin:auto;margin-top:1em">Kategoriyi Ekle</button>
+        </div>
+    </div>
+}
+

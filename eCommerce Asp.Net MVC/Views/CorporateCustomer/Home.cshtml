@@ -1,0 +1,115 @@
+﻿@using Entity.Concrete
+@model CorporateAccount
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+<br />
+<br />
+<div class="container-fluid" style="margin-left:4em">
+    <div class="row">
+        <div class="col-lg-11 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>@ViewBag.waitingConfirmOrder</h3>
+
+                    <p>Yeni Siparişler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="/CorporateCustomer/GetAllOrder/" class="small-box-footer">Siparişlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-fuchsia">
+                <div class="inner">
+                    <h3>@ViewBag.preparingOrder</h3>
+
+                    <p>Hazırlanan Siparişler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="/CorporateCustomer/GetAllOrder/" class="small-box-footer">Siparişlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-5 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@ViewBag.onShippingOrder</h3>
+
+                    <p>Kargoda Olan Siparişler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="/CorporateCustomer/GetAllOrder/" class="small-box-footer">Siparişlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-5 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@ViewBag.compeletedOrder</h3>
+
+                    <p>Tamamlanan Siparişler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="/CorporateCustomer/GetAllOrder/" class="small-box-footer">Siparişlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>@ViewBag.cancelledOrder</h3>
+
+                    <p>İptal Edilen Siparişler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="/CorporateCustomer/GetAllOrder/" class="small-box-footer">Siparişlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-11 col-6">
+            <!-- small box -->
+            <div class="small-box bg-gradient-gray-dark">
+                <div class="inner">
+                    <h3>@ViewBag.totalProductCountForCorporateCustomer</h3>
+
+                    <p>Toplam Ürün Sayımız</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="/CorporateCustomer/GetProductsByCorporateCustomer/" class="small-box-footer">Ürünlere Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-11 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>@ViewBag.countOfCommentToCorporateCustomerProduct</h3>
+
+                    <p>Ürünlerimize Gelen Toplam Yorum Sayısı</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="/CorporateCustomer/GetCommentByCorporateCustomer/" class="small-box-footer">Yorumlara Git<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+

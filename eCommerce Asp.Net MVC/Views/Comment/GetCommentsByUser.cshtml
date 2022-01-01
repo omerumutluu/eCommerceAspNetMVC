@@ -1,0 +1,45 @@
+﻿@using Entity.Concrete
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Comment>
+
+@{
+    ViewBag.Title = "GetCommentsByUser";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    @if (Model.Count > 0)
+    {
+        foreach (var comment in Model)
+        {
+            <div class="col-sm-12" style="text-align:center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@comment.CommentTitle</h5>
+                        <p class="card-text">@comment.CommentLevel <b>/ 5 </b></p>
+                        <p class="card-text">@comment.CommentDetail</p>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+    else
+    {
+        <div style="text-align:center">
+            <h4 style="color:firebrick">Henüz hiç yorum yapmamışsın.</h4>
+            <br />
+            <a class="btn btn-sm btn-primary" href="/Product/GetAll/">Alışverişe başla</a>
+        </div>
+    }
+</div>
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetCommentsByUser", "Comment", new { page }))
+</div>

@@ -1,0 +1,132 @@
+﻿@using Business.Concrete
+@using Business.Abstract
+@using DataAccess.Concrete.Repository.EntityFramework
+@using Entity.Concrete
+
+@{
+    Layout = null;
+    IAdminAccountService _adminService = new AdminAccountManager(new EfAdminAccountDal());
+    IUserService _userService = new UserManager(new EfUserDal());
+
+    User user = _userService.GetByEmail((string)Session["Email"]);
+    AdminAccount adminAccount = _adminService.GetByUserId(user.UserId);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UT Admin Paneli</title>
+    <link href="~/Themes/adminTheme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Themes/adminTheme/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Themes/adminTheme/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/Themes/adminTheme/css/animate.css" rel="stylesheet">
+    <link href="~/Themes/adminTheme/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" href="#">
+                                <span class="block m-t-xs font-bold">@(adminAccount.FirstName + " " + adminAccount.LastName)</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Admin İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetAdmins/">Tüm Adminler</a></li>
+                            <li><a href="/Admin/AddAdmin">Yeni Admin Ekleme</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-shopping-bag"></i> <span class="nav-label">Mağaza İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetCorporateCustomers/">Tüm Mağazalar</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Müşteri İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetCustomerAccounts/">Tüm Müşteriler</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-align-center"></i> <span class="nav-label">Marka İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetBrands/">Tüm Markalar</a></li>
+                            <li><a href="/Admin/AddBrand/">Marka Ekleme</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list"></i> <span class="nav-label">Kategori İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetCategories/">Tüm Kategoriler</a></li>
+                            <li><a href="/Admin/AddCategory">Kategori Ekleme</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">Ürün İşlemleri</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Admin/GetProducts">Tüm Ürünler</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="/Product/GetAll/"><i class="fa fa-user"></i> <span class="nav-label">Kullanıcı Paneline Dön</span></a>
+                    </li>
+
+                    <li>
+                        <a href="/Auth/LogOut/"><i class="fa fa-sign-out"></i> <span class="nav-label">Çıkış Yap</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                @RenderBody()
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="~/Themes/adminTheme/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Themes/adminTheme/js/popper.min.js"></script>
+    <script src="~/Themes/adminTheme/js/bootstrap.js"></script>
+    <script src="~/Themes/adminTheme/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/Themes/adminTheme/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Peity -->
+    <script src="~/Themes/adminTheme/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="~/Themes/adminTheme/js/inspinia.js"></script>
+    <script src="~/Themes/adminTheme/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="~/Themes/adminTheme/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="~/Themes/adminTheme/js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+﻿@using Entity.Concrete;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<CorporateAccount>
+
+@{
+    ViewBag.Title = "GetCorporateCustomers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="container">
+    <h1 style="text-align: center; color: #191970">TÜM MAĞAZALAR</h1>
+    <br />
+    <br />
+    <table class="table table-striped" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Kullanıcı Id</th>
+                <th scope="col">Mağaza Hesap Id</th>
+                <th scope="col">Mağaza İsmi</th>
+                <th scope="col">Telefon Numarası</th>
+                <th scope="col">Web Site</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.UserId</th>
+                    <th>@item.CorporateAccountId</th>
+                    <td>@item.CorporateName</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.WebSite</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetCorporateCustomers", "Admin", new { page }))
+</div>
+
+

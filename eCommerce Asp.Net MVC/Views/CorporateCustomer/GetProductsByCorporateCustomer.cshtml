@@ -1,0 +1,46 @@
+﻿@using Entity.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Product>
+@{
+    ViewBag.Title = "GetProductsByCorporateCustomer";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<table class="table table-striped">
+    <thead class="thead-dark" style="text-align:center">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ürün İsmi</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Fiyat</th>
+            <th scope="col">Stok</th>
+            <th scope="col">Düzenle</th>
+            <th scope="col">Sil</th>
+        </tr>
+    </thead>
+    <tbody style="text-align:center">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.ProductId</th>
+                <td>@item.ProductName</td>
+                <td>@item.Brand.BrandName</td>
+                <td>@item.Category.CategoryName</td>
+                <td><b>@item.UnitPrice TL</b></td>
+                <td><b>@item.UnitsInStock Adet</b></td>
+                <td><a href="/CorporateCustomer/EditProduct?productId=@item.ProductId" class="btn btn-warning"> Düzenle</a></td>
+                <td><a href="/CorporateCustomer/DeleteProduct?productId=@item.ProductId" class="btn btn-danger"> Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:center;margin-top:1em">
+    <a href="/CorporateCustomer/AddProduct/" class="btn btn-success">Ürün Ekle</a>
+</div>
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetProductsByCorporateCustomer", "CorporateCustomer", new { page }))
+</div>

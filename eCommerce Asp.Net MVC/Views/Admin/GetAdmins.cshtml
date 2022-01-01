@@ -1,0 +1,44 @@
+﻿@using Entity.Concrete;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<AdminAccount>
+
+@{
+    ViewBag.Title = "GetAdmins";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<h1 style="text-align: center; color: #191970">TÜM ADMİNLER</h1>
+<br />
+<br />
+<table class="table table-striped" style="text-align:center">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">User Id</th>
+            <th scope="col">Admin Id</th>
+            <th scope="col">İsim</th>
+            <th scope="col">Soyisim</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefon Numarası</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.UserId</th>
+                <th>@item.AdminId</th>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.User.Email</td>
+                <td>@item.PhoneNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("GetAdmins", "Admin", new { page }))
+</div>

@@ -1,0 +1,101 @@
+﻿@using Entity.Concrete
+@model Product
+
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_CorporateCustomerLayout.cshtml";
+}
+
+@using (Html.BeginForm("AddProduct", "CorporateCustomer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <br />
+        <br />
+        <h1 style="text-align: center; color: #191970">ÜRÜN EKLEME SAYFASI</h1>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                @Html.Label("Ürün Adı : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.ProductName)
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Kategori : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryId, new { @class = "form-control" })
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Marka : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownList("brandId", (IEnumerable<SelectListItem>)ViewBag.BrandId, new { @class = "form-control" })
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Resmi : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" name="ProductThumbnail">
+                </div>
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.ProductThumbnail)
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Fiyatı : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.UnitPrice, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.UnitPrice)
+                </div>
+                <br />
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-2">
+                @Html.Label("Ürün Stok Adeti : ", new { @style = "font-weight:bold;font-size:larger" })
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(x => x.UnitsInStock, new { @class = "form-control", @placeholder = "Ürün adını giriniz", @type = "text" })
+                <div style="text-align:center;font-weight:bold;font-size:larger;color:firebrick">
+                    @Html.ValidationMessageFor(x => x.UnitsInStock)
+                </div>
+                <br />
+            </div>
+                <button type="submit" class="btn btn-success" style="margin:auto;margin-top:1em">Ürünü Ekle</button>
+        </div>
+    </div>
+}
